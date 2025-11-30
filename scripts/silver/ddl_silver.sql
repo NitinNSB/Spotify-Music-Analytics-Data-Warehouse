@@ -54,6 +54,7 @@ CREATE TABLE silver.ma_track(
 CREATE TABLE silver.ma_artist_genre(
     artist_id INT NOT NULL,
     genre_id INT NOT NULL,
+	CONSTRAINT artist_genre_pkey PRIMARY KEY(artist_id, genre_id),
 	CONSTRAINT fkey_ma_artist_bridge FOREIGN KEY(artist_id)
 	REFERENCES silver.ma_artist(artist_id),
 	CONSTRAINT fkey_ma_genre FOREIGN KEY(genre_id)

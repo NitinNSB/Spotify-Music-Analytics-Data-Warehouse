@@ -161,7 +161,8 @@ BEGIN
     ) s
     JOIN silver.ma_genre g
         ON g.genre = s.genre
-    WHERE b.artist_genres IS NOT NULL AND b.artist_genres <> '[]';
+    WHERE b.artist_genres IS NOT NULL AND b.artist_genres <> '[]'
+	ON CONFLICT(artist_id, genre_id) DO NOTHING;
 
     RAISE NOTICE 'Silver layer load complete.';
 
