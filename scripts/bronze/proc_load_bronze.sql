@@ -6,18 +6,18 @@ BEGIN
     RAISE NOTICE '   Loading Bronze Layer';
     RAISE NOTICE '========================================';
 
-    RAISE NOTICE '------ Loading ma_spotify_track_2009_2023 Table ------';
+    RAISE NOTICE '------ Loading ma_spotify_track_a Table ------';
 
-    TRUNCATE TABLE bronze.ma_spotify_track_2009_2023;
-    COPY bronze.ma_spotify_track_2009_2023
-    FROM 'D:\\Projects\\sql-data-warehouse-project-main\\datasets\\source_MA\\spotify_track_2009_2023.csv'
+    TRUNCATE TABLE bronze.ma_spotify_track_a;
+    COPY bronze.ma_spotify_track_a
+    FROM 'D:\\Projects\\sql-data-warehouse-project-main\\datasets\\source_MA\\spotify_track_a.csv'
     CSV HEADER ENCODING 'LATIN1';
 
-    RAISE NOTICE '------ Loading ma_spotify_track_2025 Tables ------';
+    RAISE NOTICE '------ Loading ma_spotify_track_b Tables ------';
 
-    TRUNCATE TABLE bronze.ma_spotify_track_2025;
-    COPY bronze.ma_spotify_track_2025
-    FROM 'D:\\Projects\\sql-data-warehouse-project-main\\datasets\\source_MA\\spotify_track_2025.csv'
+    TRUNCATE TABLE bronze.ma_spotify_track_b;
+    COPY bronze.ma_spotify_track_b
+    FROM 'D:\\Projects\\sql-data-warehouse-project-main\\datasets\\source_MA\\spotify_track_b.csv'
     CSV HEADER ENCODING 'LATIN1';
 
 

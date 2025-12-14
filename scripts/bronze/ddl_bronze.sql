@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS bronze.ma_spotify_track_2009_2023;
-CREATE TABLE bronze.ma_spotify_track_2009_2023(
+DROP TABLE IF EXISTS bronze.ma_spotify_track_a;
+CREATE TABLE bronze.ma_spotify_track_a(
     track_id TEXT,
     track_name TEXT,
     track_number TEXT,
@@ -17,8 +17,8 @@ CREATE TABLE bronze.ma_spotify_track_2009_2023(
 	album_type TEXT
 );
 
-DROP TABLE IF EXISTS bronze.ma_spotify_track_2025;
-CREATE TABLE bronze.ma_spotify_track_2025(
+DROP TABLE IF EXISTS bronze.ma_spotify_track_b;
+CREATE TABLE bronze.ma_spotify_track_b(
     track_id            TEXT,
     track_name          TEXT,
     track_number        TEXT,

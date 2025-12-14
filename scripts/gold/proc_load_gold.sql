@@ -5,12 +5,17 @@ BEGIN
 
     RAISE NOTICE 'Creating gold.dim_artist view';
     CREATE OR REPLACE VIEW gold.dim_artist AS
-    SELECT
-        artist_id,
-        artist_name,
-        artist_popularity,
-        artist_followers
-    FROM silver.ma_artist;
+    SELECT DISTINCT
+        a.artist_id,
+        a.artist_name,
+        a.artist_popularity,
+        a.artist_followers
+    FROM silver.ma_artist as a
+	INNER JOIN silver.ma_track as t
+	ON a.artist_id = t.artist_id
+	INNER JOIN silver.ma_album as b
+	ON t.album_id = b.album_id
+	WHERE EXTRACT(YEAR FROM album_release_date) >1999 ;
 
     RAISE NOTICE 'Creating gold.dim_album view';
     CREATE OR REPLACE VIEW gold.dim_album AS

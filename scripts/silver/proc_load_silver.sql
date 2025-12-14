@@ -15,7 +15,7 @@ BEGIN
         TRIM(artist_name),
         artist_popularity::INT,
         artist_followers::INT
-    FROM bronze.ma_spotify_track_2009_2023
+    FROM bronze.ma_spotify_track_a
     WHERE artist_popularity IS NOT NULL 
       AND artist_followers IS NOT NULL
       AND artist_name IS NOT NULL
@@ -24,7 +24,7 @@ BEGIN
         TRIM(artist_name),
         artist_popularity::INT,
         artist_followers::INT
-    FROM bronze.ma_spotify_track_2025
+    FROM bronze.ma_spotify_track_b
     WHERE artist_popularity IS NOT NULL 
       AND artist_followers IS NOT NULL
       AND artist_name IS NOT NULL;
@@ -37,7 +37,7 @@ BEGIN
         (DATE '1899-12-30' + album_release_date::INT),
         album_total_tracks::INT,
         album_type
-    FROM bronze.ma_spotify_track_2009_2023
+    FROM bronze.ma_spotify_track_a
     WHERE album_id IS NOT NULL
       AND album_name IS NOT NULL
       AND album_total_tracks IS NOT NULL
@@ -51,7 +51,7 @@ BEGIN
         (DATE '1899-12-30' + album_release_date::INT),
         album_total_tracks::INT,
         album_type
-    FROM bronze.ma_spotify_track_2025
+    FROM bronze.ma_spotify_track_b
     WHERE album_id IS NOT NULL
       AND album_name IS NOT NULL
       AND album_total_tracks IS NOT NULL
@@ -67,7 +67,7 @@ BEGIN
             REPLACE(REPLACE(artist_genres, '[', ''), ']', ''),
             '\s*,\s*'
         )) AS genre
-    FROM bronze.ma_spotify_track_2009_2023
+    FROM bronze.ma_spotify_track_a
     WHERE artist_genres IS NOT NULL AND artist_genres <> '[]'
     UNION
     SELECT DISTINCT
@@ -75,7 +75,7 @@ BEGIN
             REPLACE(REPLACE(artist_genres, '[', ''), ']', ''),
             '\s*,\s*'
         ))
-    FROM bronze.ma_spotify_track_2025
+    FROM bronze.ma_spotify_track_b
     WHERE artist_genres IS NOT NULL AND artist_genres <> '[]';
 
     RAISE NOTICE 'Inserting in ma_track table';
@@ -89,7 +89,7 @@ BEGIN
         b.explicit::BOOLEAN,
         a.artist_id,
         b.album_id
-    FROM bronze.ma_spotify_track_2009_2023 b
+    FROM bronze.ma_spotify_track_a b
     JOIN silver.ma_artist a
         ON TRIM(b.artist_name) = a.artist_name
     WHERE 
@@ -112,7 +112,7 @@ BEGIN
         b.explicit::BOOLEAN,
         a.artist_id,
         b.album_id
-    FROM bronze.ma_spotify_track_2025 b
+    FROM bronze.ma_spotify_track_b b
     JOIN silver.ma_artist a
         ON TRIM(b.artist_name) = a.artist_name
     WHERE 
@@ -130,7 +130,7 @@ BEGIN
     SELECT DISTINCT
         a.artist_id,
         g.genre_id
-    FROM bronze.ma_spotify_track_2009_2023 b
+    FROM bronze.ma_spotify_track_a b
     JOIN silver.ma_artist a
         ON TRIM(b.artist_name) = a.artist_name
     CROSS JOIN LATERAL (
@@ -149,7 +149,7 @@ BEGIN
     SELECT DISTINCT
         a.artist_id,
         g.genre_id
-    FROM bronze.ma_spotify_track_2025 b
+    FROM bronze.ma_spotify_track_b b
     JOIN silver.ma_artist a
         ON TRIM(b.artist_name) = a.artist_name
     CROSS JOIN LATERAL (
